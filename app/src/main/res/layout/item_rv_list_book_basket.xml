@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvNameBookBasket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/s16"
+        android:layout_marginLeft="@dimen/s16"
+        app:layout_constraintBottom_toBottomOf="@id/tvPriceBookBasket"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPriceBookBasket"
+        tools:text="Name book" />
+
+    <TextView
+        android:id="@+id/tvPriceBookBasket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/s16"
+        android:layout_marginRight="@dimen/s16"
+        app:layout_constraintBottom_toBottomOf="@id/btnMinus"
+        app:layout_constraintEnd_toStartOf="@id/btnMinus"
+        app:layout_constraintTop_toTopOf="@id/btnMinus"
+        tools:text="Price" />
+    <ImageButton
+        android:id="@+id/btnMinus"
+        android:layout_width="@dimen/s24"
+        android:layout_height="@dimen/s24"
+        android:layout_marginEnd="@dimen/s8"
+        android:layout_marginRight="@dimen/s8"
+        android:src="@drawable/ic_btn_minus"
+        app:layout_constraintBottom_toBottomOf="@id/tvNumberBooks"
+        app:layout_constraintEnd_toStartOf="@id/tvNumberBooks"
+        app:layout_constraintTop_toTopOf="@id/tvNumberBooks"
+        android:background="@drawable/img_button_background"/>
+
+    <TextView
+        android:id="@+id/tvNumberBooks"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/s24"
+        android:layout_marginEnd="@dimen/s8"
+        android:layout_marginRight="@dimen/s8"
+        app:layout_constraintBottom_toBottomOf="@id/btnPlus"
+        app:layout_constraintEnd_toStartOf="@id/btnPlus"
+        app:layout_constraintTop_toTopOf="@id/btnPlus"
+        tools:text="Number"
+        android:gravity="center"/>
+    <ImageButton
+        android:id="@+id/btnPlus"
+        android:layout_width="@dimen/s24"
+        android:layout_height="@dimen/s24"
+        android:layout_marginRight="@dimen/s16"
+        android:src="@drawable/ic_btn_plus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnDeleteBook"
+        app:layout_constraintTop_toTopOf="@id/btnDeleteBook"
+        android:background="@drawable/img_button_background"
+        android:layout_marginEnd="@dimen/s16" />
+    <ImageButton
+        android:id="@+id/btnDeleteBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/s16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_cancel"
+        android:background="@drawable/img_button_background"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

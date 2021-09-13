@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="?attr/actionBarSize"
+    android:layout_height="?attr/actionBarSize">
+    <ImageView
+        android:layout_width="@dimen/s24"
+        android:layout_height="@dimen/s24"
+        android:src="@drawable/ic_shop_basket"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/tvBadgeCounter"
+        android:layout_width="@dimen/s12"
+        android:layout_height="@dimen/s12"
+        android:background="@drawable/badge"
+        android:text="@string/_0"
+        android:textSize="8sp"
+        tools:ignore="SmallSp,SpUsage"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_marginRight="@dimen/s12"
+        android:layout_marginBottom="@dimen/s10"
+        android:layout_marginEnd="@dimen/s12" />
+</FrameLayout>

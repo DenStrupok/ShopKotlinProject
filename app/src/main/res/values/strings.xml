@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ShopKotlinProject</string>
+    <string name="what_book_you_find">What book you find</string>
+    <string name="shop_notification">Shop notification</string>
+    <string name="_0">0</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_family">Enter family</string>
+    <string name="phone_number">Phone number</string>
+    <string name="ok">Ok</string>
+    <string name="confirm">Confirm</string>
+    <string name="total_summary">Total summary:</string>
+    <string name="back">Back</string>
+    <string name="do_you_want_save_your_order">Do you want save your order</string>
+    <string name="finish">Finish</string>
+    <string name="save">Save</string>
+</resources>

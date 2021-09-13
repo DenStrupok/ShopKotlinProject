@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/chooseBooksFragment">
+
+    <fragment
+        android:id="@+id/chooseBooksFragment"
+        android:name="com.example.shopkotlinproject.presentation.chooseBook.ChooseBooksFragment"
+        android:label="ChooseBooksFragment"
+        tools:layout="@layout/fragment_choose_books">
+        <action android:id="@+id/action_frag_choose_book_to_confirmOrderFragment"
+            app:destination="@id/confirmOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmOrderFragment"
+        android:name="com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment"
+        android:label="ConfirmOrderFragment"
+        tools:layout="@layout/fragment_confirm_order">
+        <action android:id="@+id/action_frag_choose_book_to_confirmOrderFragment"
+            app:destination="@id/resultOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/resultOrderFragment"
+        android:name="com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment"
+        android:label="ResultOrderFragment"
+        tools:layout="@layout/fragment_result_order">
+        <action android:id="@+id/action_frag_choose_book_to_confirmOrderFragment"
+            app:destination="@id/chooseBooksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popExitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>
