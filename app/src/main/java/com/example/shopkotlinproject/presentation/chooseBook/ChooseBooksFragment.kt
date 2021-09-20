@@ -41,6 +41,9 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+        
         chooseBooksViewModel = ViewModelProviders.of(this)[ChooseBooksViewModel::class.java]
         val view: View = inflater.inflate(R.layout.fragment_choose_books, container, false)
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
