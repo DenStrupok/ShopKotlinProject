@@ -12,6 +12,7 @@ import com.example.shopkotlinproject.pojo.Book
 
 class ConfirmOrderAdapter(private val listener: ReceivedBooks) :
     RecyclerView.Adapter<ConfirmOrderAdapter.MyViewHolder>() {
+
     private var listBooks: MutableList<Book> = mutableListOf()
 
 

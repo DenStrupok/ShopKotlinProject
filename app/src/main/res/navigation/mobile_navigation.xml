@@ -17,7 +17,6 @@
             app:popExitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_out_right"/>
     </fragment>
-
     <fragment
         android:id="@+id/confirmOrderFragment"
         android:name="com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment"
@@ -42,4 +41,10 @@
             app:popExitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/savedOrderFragment"
+        android:name="com.example.shopkotlinproject.presentation.savedOrder.SavedOrderFragment"
+        android:label="SavedOrderFragment"
+        tools:layout="@layout/fragment_saved_order"/>
+
 </navigation>

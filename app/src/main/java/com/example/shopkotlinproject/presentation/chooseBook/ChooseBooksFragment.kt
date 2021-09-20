@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -27,7 +28,6 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private lateinit var tvBadgeCounter: TextView
     private lateinit var navController: NavController
     private var listSelectedBooks = mutableListOf<Book>()
-    private lateinit var tvSummary: TextView
     private val bundle = Bundle()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +48,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         setHasOptionsMenu(true)
         toolbar.title = "Choose book"
         (activity as MainActivity?)?.setSupportActionBar(toolbar)
-        tvSummary = view.findViewById(R.id.tvSummary)
+        val btnListOrder: ImageButton = view.findViewById(R.id.btnListOrder)
+        btnListOrder.setOnClickListener(this)
         val rvListBook: RecyclerView = view.findViewById(R.id.rvListBook)
         val adapter = ChooseBooksAdapter(requireContext(), this)
         rvListBook.adapter = adapter

@@ -24,6 +24,8 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
     private lateinit var resultOrderViewModel: ResultOrderViewModel
     private lateinit var navController: NavController
     private lateinit var dialog: Dialog
+    private lateinit var order: Order
+    private lateinit var list: MutableList<Book>
     companion object{
         const val ORDER = "order "
         const val LIST_BOOKS = "list books"
@@ -38,14 +40,12 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
     ): View {
         resultOrderViewModel = ViewModelProviders.of(this)[ResultOrderViewModel::class.java]
         val view: View = inflater.inflate(R.layout.fragment_result_order, container, false)
-        val order = arguments?.getParcelable<Order>(ORDER)
+        order = arguments?.getParcelable<Order>(ORDER)!!
         val resultOrderAdapter = ResultOrderAdapter()
         val rvResultOrder: RecyclerView = view.findViewById(R.id.rvResultOrder)
         rvResultOrder.adapter = resultOrderAdapter
-        val list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)
-        if (list !=null){
-            resultOrderAdapter.passListBookOrderAdapter(list)
-        }
+        list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
+        resultOrderAdapter.passListBookOrderAdapter(list)
         val tvSummaryListBooks: TextView = view.findViewById(R.id.tvSummaryListBooks)
         tvSummaryListBooks.text = "Summary order: ${arguments?.getInt(SUMMARY_LIST_BOOKS)} $"
         val tvNumberOrder: TextView = view.findViewById(R.id.tvNumberOrder)
@@ -74,7 +74,13 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnBack -> showDialog()
-            R.id.btnResultSave -> Toast.makeText(requireContext(), "Save click", Toast.LENGTH_LONG).show()
+            R.id.btnResultSave -> {
+                val bundle = Bundle()
+                bundle.putParcelable(ORDER, order)
+                bundle.putParcelableArrayList(LIST_BOOKS, list as ArrayList<Book>)
+                navController.navigate(R.id.chooseBooksFragment, bundle)
+                dialog.dismiss()
+            }
             R.id.btnResultFinish -> {
                 Toast.makeText(requireContext(), "Our manager will be call ", Toast.LENGTH_LONG).show()
                 navController.navigate(R.id.chooseBooksFragment)

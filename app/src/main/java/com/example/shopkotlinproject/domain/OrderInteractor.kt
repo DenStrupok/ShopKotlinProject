@@ -7,12 +7,9 @@ import com.example.shopkotlinproject.pojo.Order
 import kotlin.random.Random
 
 class OrderInteractor {
-    private var bookName: String? = null
     private var summary = 0
     private var index = 0
-    private val min = 1
-    private val max = 100
-    private val random = Random
+
     fun totalSummaryOrder(list: MutableList<Book>): Int  {
         index = 0
         summary = 0

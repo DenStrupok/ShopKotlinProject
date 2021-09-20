@@ -31,7 +31,7 @@ class BooksInteractor {
         getSummaryBooksOrder(listCheckedBooks)
         return listCheckedBooks
     }
-    fun getSummaryBooksOrder(list: MutableList<Book>): Int{
+    private fun getSummaryBooksOrder(list: MutableList<Book>): Int{
         for (i in list.indices){
             summary += list[i].number * list[i].price
         }

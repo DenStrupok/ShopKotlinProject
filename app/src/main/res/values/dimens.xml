@@ -19,4 +19,5 @@
     <dimen name="s60">60</dimen>
     <dimen name="s12">12dp</dimen>
     <dimen name="s10">10dp</dimen>
+    <dimen name="s36">36dp</dimen>
 </resources>
