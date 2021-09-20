@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkotlinproject.R
 import com.example.shopkotlinproject.pojo.Book
 import com.example.shopkotlinproject.pojo.Order
+import com.example.shopkotlinproject.presentation.adapter.ListBooksAdapter
 import com.example.shopkotlinproject.presentation.dialog.ResultDialogFragment
 
 class ResultOrderFragment: Fragment(), View.OnClickListener {
@@ -26,10 +27,12 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
     private lateinit var dialog: Dialog
     private lateinit var order: Order
     private lateinit var list: MutableList<Book>
+    private var orderID: Int = 0
     companion object{
         const val ORDER = "order "
         const val LIST_BOOKS = "list books"
         const val SUMMARY_LIST_BOOKS = "summary list books"
+        const val ORDER_ID = "order id"
     }
 
     @SuppressLint("SetTextI18n")
@@ -41,15 +44,16 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
         resultOrderViewModel = ViewModelProviders.of(this)[ResultOrderViewModel::class.java]
         val view: View = inflater.inflate(R.layout.fragment_result_order, container, false)
         order = arguments?.getParcelable<Order>(ORDER)!!
-        val resultOrderAdapter = ResultOrderAdapter()
         val rvResultOrder: RecyclerView = view.findViewById(R.id.rvResultOrder)
-        rvResultOrder.adapter = resultOrderAdapter
         list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
-        resultOrderAdapter.passListBookOrderAdapter(list)
+        val listBooksAdapter = ListBooksAdapter()
+        rvResultOrder.adapter = listBooksAdapter
+        listBooksAdapter.sendBooksAdapter(list)
         val tvSummaryListBooks: TextView = view.findViewById(R.id.tvSummaryListBooks)
         tvSummaryListBooks.text = "Summary order: ${arguments?.getInt(SUMMARY_LIST_BOOKS)} $"
         val tvNumberOrder: TextView = view.findViewById(R.id.tvNumberOrder)
-        tvNumberOrder.text = "Order's number:  " + resultOrderViewModel.getOrderID(order!!)
+        orderID = resultOrderViewModel.getOrderID(order)
+        tvNumberOrder.text = "Order's number:  $orderID"
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         val tvResultNameClient: TextView = view.findViewById(R.id.tvResultNameClient)
         val tvResultFamilyClient: TextView = view.findViewById(R.id.tvResultFamilyClient)
@@ -78,6 +82,7 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
                 val bundle = Bundle()
                 bundle.putParcelable(ORDER, order)
                 bundle.putParcelableArrayList(LIST_BOOKS, list as ArrayList<Book>)
+                bundle.putInt(ORDER_ID, orderID)
                 navController.navigate(R.id.chooseBooksFragment, bundle)
                 dialog.dismiss()
             }
