@@ -21,6 +21,7 @@ class SavedOrderFragment: Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_saved_order, container, false)
         val order = arguments?.getParcelable<Order>(ORDER)
         val list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)
+        list?.size
         return view
     }
 }

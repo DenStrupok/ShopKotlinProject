@@ -18,7 +18,10 @@ import com.example.shopkotlinproject.MainActivity
 import com.example.shopkotlinproject.MainActivity.Companion.MY_TAG
 import com.example.shopkotlinproject.R
 import com.example.shopkotlinproject.pojo.Book
+import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment.Companion.LIST_BOOKS_BASKET
+import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.LIST_BOOKS
+import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.ORDER
 
 
 class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListener {
@@ -29,7 +32,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private lateinit var navController: NavController
     private var listSelectedBooks = mutableListOf<Book>()
     private val bundle = Bundle()
-
+    private var order: Order? = null
+    private lateinit var listBooks: MutableList<Book>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
@@ -41,11 +45,9 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
-        
         chooseBooksViewModel = ViewModelProviders.of(this)[ChooseBooksViewModel::class.java]
         val view: View = inflater.inflate(R.layout.fragment_choose_books, container, false)
+        order = arguments?.getParcelable(ORDER)
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
         setHasOptionsMenu(true)
@@ -87,6 +89,13 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
                 if (bundle.isEmpty) {
                     Toast.makeText(requireContext(), "Add book to basket", Toast.LENGTH_LONG).show()
                 } else navController.navigate(R.id.confirmOrderFragment, bundle)
+            }
+            R.id.btnListOrder -> {
+                listBooks = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
+                val bundle = Bundle()
+                bundle.putParcelable(ORDER, order)
+                bundle.putParcelableArrayList(LIST_BOOKS, listBooks as ArrayList<Book>)
+                navController.navigate(R.id.savedOrderFragment, bundle)
             }
         }
     }
