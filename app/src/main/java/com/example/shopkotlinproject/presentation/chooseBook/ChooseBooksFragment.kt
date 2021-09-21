@@ -22,6 +22,7 @@ import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment.Companion.LIST_BOOKS_BASKET
 import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.LIST_BOOKS
 import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.ORDER
+import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.ORDER_ID
 
 
 class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListener {
@@ -34,10 +35,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private val bundle = Bundle()
     private var order: Order? = null
     private lateinit var listBooks: MutableList<Book>
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        super.onViewCreated(view, savedInstanceState)
-    }
+    private lateinit var btnListOrder: ImageButton
+    private var orderID: Int? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -50,11 +49,14 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         order = arguments?.getParcelable(ORDER)
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        orderID = arguments?.getInt(ORDER_ID)
         setHasOptionsMenu(true)
         toolbar.title = "Choose book"
         (activity as MainActivity?)?.setSupportActionBar(toolbar)
-        val btnListOrder: ImageButton = view.findViewById(R.id.btnListOrder)
+        btnListOrder = view.findViewById(R.id.btnListOrder)
         btnListOrder.setOnClickListener(this)
+        btnListOrder.visibility = View.GONE
+        order?.let { hideShowImageButton(it) }
         val rvListBook: RecyclerView = view.findViewById(R.id.rvListBook)
         val adapter = ChooseBooksAdapter(requireContext(), this)
         rvListBook.adapter = adapter
@@ -95,9 +97,13 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
                 val bundle = Bundle()
                 bundle.putParcelable(ORDER, order)
                 bundle.putParcelableArrayList(LIST_BOOKS, listBooks as ArrayList<Book>)
+                orderID?.let { bundle.putInt(ORDER_ID, it) }
                 navController.navigate(R.id.savedOrderFragment, bundle)
             }
         }
+    }
+    private fun hideShowImageButton(order: Order){
+        btnListOrder.visibility = View.VISIBLE
     }
 }
 
