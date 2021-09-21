@@ -37,13 +37,11 @@
             android:textSize="@dimen/s16"
             android:textColor="@color/white"
             tools:ignore="SpUsage"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_marginTop="@dimen/s16"
-            android:layout_marginRight="@dimen/s16"
-            android:layout_marginEnd="@dimen/s16"
             android:layout_marginStart="@dimen/s16"
-            android:layout_marginLeft="@dimen/s16"
-            android:textStyle="italic"/>
+            android:textStyle="italic"
+            android:layout_marginLeft="@dimen/s16" />
         <TextView
             android:id="@+id/tvResultFamilyClient"
             android:layout_width="wrap_content"
@@ -51,14 +49,12 @@
             tools:text="Family client"
             android:textSize="@dimen/s16"
             tools:ignore="SpUsage"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_marginTop="@dimen/s16"
-            android:layout_marginRight="@dimen/s16"
-            android:layout_marginEnd="@dimen/s16"
-            android:layout_marginStart="@dimen/s16"
-            android:layout_marginLeft="@dimen/s16"
             android:textStyle="italic"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginLeft="@dimen/s16" />
         <TextView
             android:id="@+id/tvResultPhoneClient"
             android:layout_width="wrap_content"
@@ -66,11 +62,13 @@
             tools:text="Phone client"
             android:textSize="@dimen/s16"
             tools:ignore="SpUsage"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:layout_marginTop="@dimen/s16"
             android:textStyle="italic"
             android:textColor="@color/white"
-            android:layout_marginBottom="@dimen/s16"/>
+            android:layout_marginBottom="@dimen/s16"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginLeft="@dimen/s16" />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvResultOrder"

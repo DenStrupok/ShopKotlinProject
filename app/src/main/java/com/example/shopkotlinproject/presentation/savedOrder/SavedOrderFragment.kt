@@ -1,5 +1,6 @@
 package com.example.shopkotlinproject.presentation.savedOrder
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import org.w3c.dom.Text
 
 class SavedOrderFragment: Fragment() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,10 +37,10 @@ class SavedOrderFragment: Fragment() {
         val tvSavedOrderClientName: TextView = view.findViewById(R.id.tvSavedOrderClientName)
         val tvSavedOrderClientFamily: TextView = view.findViewById(R.id.tvSavedOrderClientFamily)
         val tvSavedOrderClientPhone: TextView = view.findViewById(R.id.tvSavedOrderClientPhone)
-        tvSavedOrderID.text = orderID.toString()
-        tvSavedOrderClientName.text = order?.nameClient.toString()
-        tvSavedOrderClientFamily.text = order?.familyClient.toString()
-        tvSavedOrderClientPhone.text = order?.phoneNumber.toString()
+        tvSavedOrderID.text = "Order's number ${orderID.toString()}"
+        tvSavedOrderClientName.text = "Client name:   ${order?.nameClient.toString()}"
+        tvSavedOrderClientFamily.text = "Client family:   ${order?.familyClient.toString()}"
+        tvSavedOrderClientPhone.text = "Client phone:   ${order?.phoneNumber.toString()}"
         return view
     }
 }
