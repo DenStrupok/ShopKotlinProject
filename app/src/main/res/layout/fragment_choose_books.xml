@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -10,17 +11,36 @@
         android:layout_height="wrap_content"
         android:background="@drawable/fragment_background"
         app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:layout_marginRight="@dimen/s16"
+            android:layout_marginEnd="@dimen/s16">
         <ImageButton
             android:id="@+id/btnListOrder"
-            android:layout_width="@dimen/s32"
-            android:layout_height="@dimen/s32"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/s16"
-            android:layout_marginRight="@dimen/s16"
+            android:layout_width="@dimen/s42"
+            android:layout_height="@dimen/s42"
             android:background="@drawable/button_background"
-            android:src="@drawable/ic_list_order" />
+            android:src="@drawable/ic_list_order"
+            android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/tvBadgeOrderCounter"
+                android:layout_width="@dimen/s16"
+                android:layout_height="@dimen/s16"
+                android:background="@drawable/badge"
+                android:text="@string/_0"
+                android:textSize="8sp"
+                tools:ignore="SmallSp,SpUsage"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_marginRight="@dimen/s12"
+                android:layout_marginBottom="@dimen/s10"
+                android:layout_marginEnd="@dimen/s12" />
+        </FrameLayout>
     </androidx.appcompat.widget.Toolbar>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListBook"
         android:layout_width="match_parent"

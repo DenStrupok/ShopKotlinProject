@@ -37,6 +37,7 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private lateinit var listBooks: MutableList<Book>
     private lateinit var btnListOrder: ImageButton
     private var orderID: Int? = null
+    private lateinit var tvBadgeOrderCounter: TextView
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -55,6 +56,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         (activity as MainActivity?)?.setSupportActionBar(toolbar)
         btnListOrder = view.findViewById(R.id.btnListOrder)
         btnListOrder.setOnClickListener(this)
+        tvBadgeOrderCounter = view.findViewById(R.id.tvBadgeOrderCounter)
+        tvBadgeOrderCounter.visibility = View.GONE
         btnListOrder.visibility = View.GONE
         order?.let { hideShowImageButton(it) }
         val rvListBook: RecyclerView = view.findViewById(R.id.rvListBook)
@@ -104,6 +107,7 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     }
     private fun hideShowImageButton(order: Order){
         btnListOrder.visibility = View.VISIBLE
+        tvBadgeOrderCounter.visibility = View.VISIBLE
     }
 }
 
