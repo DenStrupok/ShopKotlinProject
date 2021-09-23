@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkotlinproject.MainActivity.Companion.MY_TAG
 import com.example.shopkotlinproject.R
+import com.example.shopkotlinproject.databinding.FragmentConfirmOrderBinding
 import com.example.shopkotlinproject.pojo.Book
 import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.LIST_BOOKS
@@ -49,26 +51,27 @@ class ConfirmOrderFragment : Fragment(), ReceivedBooks, TextWatcher {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val binding: FragmentConfirmOrderBinding  = DataBindingUtil.inflate(inflater, R.layout.fragment_confirm_order, container, false)
         confirmOrderViewModel = ViewModelProviders.of(this)[ConfirmOrderViewModel::class.java]
         val listBooks: MutableList<Book> =
             arguments?.getParcelableArrayList<Book>(LIST_BOOKS_BASKET) as MutableList<Book>
         confirmOrderViewModel.summaryOrder(listBooks)
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-        val view: View = inflater.inflate(R.layout.fragment_confirm_order, container, false)
-        edClientName = view.findViewById(R.id.edClientName)
-        edClientFamily = view.findViewById(R.id.edClientFamily)
-        edClientPhone = view.findViewById(R.id.edClientPhone)
+        val view: View = binding.root
+        edClientName = binding.edClientName
+        edClientFamily = binding.edClientFamily
+        edClientPhone = binding.edClientPhone
         edClientName.addTextChangedListener(this)
         edClientFamily.addTextChangedListener(this)
         edClientPhone.addTextChangedListener(this)
         tvTotalSummaryOrder = view.findViewById(R.id.tvTotalSummaryOrder)
-        val rvListBookOrder: RecyclerView = view.findViewById(R.id.rvListBookOrder)
+//        val rvListBookOrder: RecyclerView = view.findViewById(R.id.rvListBookOrder)
         val orderAdapter = ConfirmOrderAdapter(this)
         orderAdapter.passListAdapter(listBooks)
-        rvListBookOrder.adapter = orderAdapter
-        rvListBookOrder.addItemDecoration(
+        binding.rvListBookOrder.adapter = orderAdapter
+        binding.rvListBookOrder.addItemDecoration(
             DividerItemDecoration(
-                rvListBookOrder.context,
+                binding.rvListBookOrder.context,
                 DividerItemDecoration.VERTICAL
             )
         )

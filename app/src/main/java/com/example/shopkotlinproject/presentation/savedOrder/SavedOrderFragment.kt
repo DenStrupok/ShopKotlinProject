@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkotlinproject.R
+import com.example.shopkotlinproject.databinding.FragmentSavedOrderBinding
 import com.example.shopkotlinproject.pojo.Book
 import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.adapter.ListBooksAdapter
@@ -25,22 +27,18 @@ class SavedOrderFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.fragment_saved_order, container, false)
+        val binding: FragmentSavedOrderBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_saved_order, container, false )
+        val view: View = binding.root
         val order = arguments?.getParcelable<Order>(ORDER)
         val list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)
-        val rvSavedFragment: RecyclerView = view.findViewById(R.id.rvSavedFragment)
         val adapter = ListBooksAdapter()
         list?.let { adapter.sendBooksAdapter(it) }
-        rvSavedFragment.adapter = adapter
+        binding.rvSavedFragment.adapter = adapter
         val orderID = arguments?.getInt(ORDER_ID)
-        val tvSavedOrderID: TextView = view.findViewById(R.id.tvSavedOrderID)
-        val tvSavedOrderClientName: TextView = view.findViewById(R.id.tvSavedOrderClientName)
-        val tvSavedOrderClientFamily: TextView = view.findViewById(R.id.tvSavedOrderClientFamily)
-        val tvSavedOrderClientPhone: TextView = view.findViewById(R.id.tvSavedOrderClientPhone)
-        tvSavedOrderID.text = "Order's number ${orderID.toString()}"
-        tvSavedOrderClientName.text = "Client name:   ${order?.nameClient.toString()}"
-        tvSavedOrderClientFamily.text = "Client family:   ${order?.familyClient.toString()}"
-        tvSavedOrderClientPhone.text = "Client phone:   ${order?.phoneNumber.toString()}"
+        binding.tvSavedOrderID.text = "Order's number ${orderID.toString()}"
+        binding.tvSavedOrderClientName.text = "Client name:   ${order?.nameClient.toString()}"
+        binding.tvSavedOrderClientFamily.text = "Client family:   ${order?.familyClient.toString()}"
+        binding.tvSavedOrderClientPhone.text = "Client phone:   ${order?.phoneNumber.toString()}"
         return view
     }
 }
