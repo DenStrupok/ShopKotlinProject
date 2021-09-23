@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkotlinproject.MainActivity
 import com.example.shopkotlinproject.MainActivity.Companion.MY_TAG
 import com.example.shopkotlinproject.R
+import com.example.shopkotlinproject.databinding.FragmentChooseBooksBinding
 import com.example.shopkotlinproject.pojo.Book
 import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment.Companion.LIST_BOOKS_BASKET
@@ -37,8 +39,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private lateinit var listBooks: MutableList<Book>
     private lateinit var btnListOrder: ImageButton
     private var orderID: Int? = null
-    private lateinit var tvBadgeOrderCounter: TextView
-
+//    private lateinit var tvBadgeOrderCounter: TextView
+    private lateinit var binding: FragmentChooseBooksBinding
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,23 +48,20 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         savedInstanceState: Bundle?
     ): View {
         chooseBooksViewModel = ViewModelProviders.of(this)[ChooseBooksViewModel::class.java]
-        val view: View = inflater.inflate(R.layout.fragment_choose_books, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_choose_books, container, false )
+        val view: View = binding.root
         order = arguments?.getParcelable(ORDER)
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-        val toolbar: Toolbar = view.findViewById(R.id.toolbar)
         orderID = arguments?.getInt(ORDER_ID)
         setHasOptionsMenu(true)
-        toolbar.title = "Choose book"
-        (activity as MainActivity?)?.setSupportActionBar(toolbar)
-        btnListOrder = view.findViewById(R.id.btnListOrder)
-        btnListOrder.setOnClickListener(this)
-        tvBadgeOrderCounter = view.findViewById(R.id.tvBadgeOrderCounter)
-        tvBadgeOrderCounter.visibility = View.GONE
-        btnListOrder.visibility = View.GONE
+        binding.toolbar.title = "Choose book"
+        (activity as MainActivity?)?.setSupportActionBar(binding.toolbar)
+        binding.btnListOrder.setOnClickListener(this)
+        binding.tvBadgeOrderCounter.visibility = View.GONE
+        binding.btnListOrder.visibility = View.GONE
         order?.let { hideShowImageButton(it) }
-        val rvListBook: RecyclerView = view.findViewById(R.id.rvListBook)
         val adapter = ChooseBooksAdapter(requireContext(), this)
-        rvListBook.adapter = adapter
+        binding.rvListBook.adapter = adapter
         chooseBooksViewModel.getListBooks().observe(viewLifecycleOwner, {
             adapter.passListBookAdapter(it)
         })
@@ -106,8 +105,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         }
     }
     private fun hideShowImageButton(order: Order){
-        btnListOrder.visibility = View.VISIBLE
-        tvBadgeOrderCounter.visibility = View.VISIBLE
+        binding.btnListOrder.visibility = View.VISIBLE
+ //       tvBadgeOrderCounter.visibility = View.VISIBLE
     }
 }
 

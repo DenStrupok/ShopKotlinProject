@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopkotlinproject.R
+import com.example.shopkotlinproject.databinding.FragmentResultOrderBinding
 import com.example.shopkotlinproject.pojo.Book
 import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.adapter.ListBooksAdapter
@@ -28,6 +30,7 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
     private lateinit var order: Order
     private lateinit var list: MutableList<Book>
     private var orderID: Int = 0
+   private lateinit var binding: FragmentResultOrderBinding
     companion object{
         const val ORDER = "order "
         const val LIST_BOOKS = "list books"
@@ -42,27 +45,21 @@ class ResultOrderFragment: Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         resultOrderViewModel = ViewModelProviders.of(this)[ResultOrderViewModel::class.java]
-        val view: View = inflater.inflate(R.layout.fragment_result_order, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_result_order, container, false)
+        val view: View = binding.root
         order = arguments?.getParcelable<Order>(ORDER)!!
-        val rvResultOrder: RecyclerView = view.findViewById(R.id.rvResultOrder)
         list = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
         val listBooksAdapter = ListBooksAdapter()
-        rvResultOrder.adapter = listBooksAdapter
+        binding.rvResultOrder.adapter = listBooksAdapter
         listBooksAdapter.sendBooksAdapter(list)
-        val tvSummaryListBooks: TextView = view.findViewById(R.id.tvSummaryListBooks)
-        tvSummaryListBooks.text = "Summary order: ${arguments?.getInt(SUMMARY_LIST_BOOKS)} $"
-        val tvNumberOrder: TextView = view.findViewById(R.id.tvNumberOrder)
+        binding.tvSummaryListBooks.text = "Summary order: ${arguments?.getInt(SUMMARY_LIST_BOOKS)} $"
         orderID = resultOrderViewModel.getOrderID(order)
-        tvNumberOrder.text = "Order's number:  $orderID"
+        binding.tvNumberOrder.text = "Order's number:  $orderID"
         navController = Navigation.findNavController(requireActivity(), R.id.navHostFragment)
-        val tvResultNameClient: TextView = view.findViewById(R.id.tvResultNameClient)
-        val tvResultFamilyClient: TextView = view.findViewById(R.id.tvResultFamilyClient)
-        val tvResultPhoneClient: TextView = view.findViewById(R.id.tvResultPhoneClient)
-        tvResultNameClient.text = "Name: " + order.nameClient
-        tvResultFamilyClient.text = "Family: " + order.familyClient
-        tvResultPhoneClient.text = "Phone: " + order.phoneNumber
-        val btnBack: Button = view.findViewById(R.id.btnBack)
-        btnBack.setOnClickListener(this)
+        binding.tvResultNameClient.text = "Name: " + order.nameClient
+        binding.tvResultFamilyClient.text = "Family: " + order.familyClient
+        binding.tvResultPhoneClient.text = "Phone: " + order.phoneNumber
+        binding.btnBack.setOnClickListener(this)
         return view
     }
     private fun showDialog(){
