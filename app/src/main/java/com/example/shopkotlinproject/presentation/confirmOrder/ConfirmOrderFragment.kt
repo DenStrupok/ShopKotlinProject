@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -52,7 +52,7 @@ class ConfirmOrderFragment : Fragment(), ReceivedBooks, TextWatcher {
         savedInstanceState: Bundle?
     ): View {
         val binding: FragmentConfirmOrderBinding  = DataBindingUtil.inflate(inflater, R.layout.fragment_confirm_order, container, false)
-        confirmOrderViewModel = ViewModelProviders.of(this)[ConfirmOrderViewModel::class.java]
+        confirmOrderViewModel = ViewModelProvider(this)[ConfirmOrderViewModel::class.java]
         val listBooks: MutableList<Book> =
             arguments?.getParcelableArrayList<Book>(LIST_BOOKS_BASKET) as MutableList<Book>
         confirmOrderViewModel.summaryOrder(listBooks)

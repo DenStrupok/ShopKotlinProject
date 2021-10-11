@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +20,7 @@ import com.example.shopkotlinproject.MainActivity.Companion.MY_TAG
 import com.example.shopkotlinproject.R
 import com.example.shopkotlinproject.databinding.FragmentChooseBooksBinding
 import com.example.shopkotlinproject.pojo.Book
+import com.example.shopkotlinproject.pojo.BookUI
 import com.example.shopkotlinproject.pojo.Order
 import com.example.shopkotlinproject.presentation.confirmOrder.ConfirmOrderFragment.Companion.LIST_BOOKS_BASKET
 import com.example.shopkotlinproject.presentation.resultOrder.ResultOrderFragment.Companion.LIST_BOOKS
@@ -33,13 +34,12 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
     private var menuItem: MenuItem? = null
     private lateinit var tvBadgeCounter: TextView
     private lateinit var navController: NavController
-    private var listSelectedBooks = mutableListOf<Book>()
+    private var listSelectedBooks = mutableListOf<BookUI>()
     private val bundle = Bundle()
     private var order: Order? = null
-    private lateinit var listBooks: MutableList<Book>
+    private lateinit var listBooks: MutableList<BookUI>
     private lateinit var btnListOrder: ImageButton
     private var orderID: Int? = null
-//    private lateinit var tvBadgeOrderCounter: TextView
     private lateinit var binding: FragmentChooseBooksBinding
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -47,7 +47,8 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        chooseBooksViewModel = ViewModelProviders.of(this)[ChooseBooksViewModel::class.java]
+        chooseBooksViewModel = ViewModelProvider(this)[ChooseBooksViewModel::class.java]
+        chooseBooksViewModel.getBooksServer()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_choose_books, container, false )
         val view: View = binding.root
         order = arguments?.getParcelable(ORDER)
@@ -95,7 +96,7 @@ class ChooseBooksFragment : Fragment(), ItemClickRecyclerView, View.OnClickListe
                 } else navController.navigate(R.id.confirmOrderFragment, bundle)
             }
             R.id.btnListOrder -> {
-                listBooks = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
+//                listBooks = arguments?.getParcelableArrayList<Book>(LIST_BOOKS)!!
                 val bundle = Bundle()
                 bundle.putParcelable(ORDER, order)
                 bundle.putParcelableArrayList(LIST_BOOKS, listBooks as ArrayList<Book>)
