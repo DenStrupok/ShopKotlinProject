@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shopkotlinproject.data.ChooseBooksModel
 import com.example.shopkotlinproject.domain.BooksInteractor
-import com.example.shopkotlinproject.presentation.confirmOrder.ReceivedBooks
 import com.example.shopkotlinproject.pojo.Book
+import com.example.shopkotlinproject.pojo.BookUI
 
 class ChooseBooksViewModel(application: Application) : AndroidViewModel(application),
     CreateListBooks,
@@ -15,31 +15,33 @@ class ChooseBooksViewModel(application: Application) : AndroidViewModel(applicat
 
     private val listBooksModel = ChooseBooksModel(application.baseContext, this)
     private val booksInteractor = BooksInteractor()
-    private val mBookListLiveData = MutableLiveData<MutableList<Book>>()
-    private val mOrderBooksList = MutableLiveData<MutableList<Book>>()
+    private val mBookListLiveData = MutableLiveData<MutableList<BookUI>>()
+    private val mOrderBooksList = MutableLiveData<MutableList<BookUI>>()
 
-    init {
-        listBooksModel.crateListBooks()
+
+
+    fun getBooksServer(){
+        listBooksModel.getBook()
     }
 
     fun passListViewModel(selectedBooks: Book) {
-        mOrderBooksList.value = booksInteractor.addBookToOrder(selectedBooks)
+//        mOrderBooksList.value = booksInteractor.addBookToOrder(selectedBooks)
     }
 
-    fun getOrderBooksList(): LiveData<MutableList<Book>> {
+    fun getOrderBooksList(): LiveData<MutableList<BookUI>> {
         return mOrderBooksList
     }
 
-    fun getListBooks(): LiveData<MutableList<Book>> {
+    fun getListBooks(): LiveData<MutableList<BookUI>> {
         return mBookListLiveData
     }
 
 
-    override fun createdListBooks(listBooks: MutableList<Book>) {
+    override fun createdListBooks(listBooks: MutableList<BookUI>) {
         mBookListLiveData.value = listBooks
     }
 
     override fun listBooksOrder(listBooksOrder: MutableList<Book>) {
-        mOrderBooksList.value = listBooksOrder
+ //       mOrderBooksList.value = listBooksOrder
     }
 }

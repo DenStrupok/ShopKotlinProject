@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopkotlinproject.R
 import com.example.shopkotlinproject.pojo.Book
+import com.example.shopkotlinproject.pojo.BookUI
 
 class ChooseBooksAdapter(
     private val context: Context,
@@ -19,8 +20,8 @@ class ChooseBooksAdapter(
 ) :
     RecyclerView.Adapter<ChooseBooksAdapter.MyViewHolder>() {
 
-    private var listBooks = mutableListOf<Book>()
-    fun passListBookAdapter(list: MutableList<Book>) {
+    private var listBooks = mutableListOf<BookUI>()
+    fun passListBookAdapter(list: MutableList<BookUI>) {
         listBooks = list
         notifyDataSetChanged()
     }
@@ -36,14 +37,14 @@ class ChooseBooksAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ChooseBooksAdapter.MyViewHolder, position: Int) {
-        Glide.with(context).load(listBooks[position].image).into(holder.imgBook)
-        holder.tvNameBook.text = listBooks[position].name
+        Glide.with(context).load(listBooks[position].book_image).into(holder.imgBook)
+        holder.tvNameBook.text = listBooks[position].title
         holder.tvAuthor.text = listBooks[position].author
         holder.tvPriceBook.text = listBooks[position].price.toString()
         holder.btnAddBookBasket.setOnClickListener {
             val checkedBook = listBooks[position]
-            listener.itemRecyclerClicked(checkedBook)
-        }
+//            listener.itemRecyclerClicked(checkedBook)
+       }
     }
     override fun getItemCount(): Int {
         return listBooks.size
